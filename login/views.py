@@ -1,3 +1,4 @@
+from home.models import Trip
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from time import gmtime, strftime
@@ -59,3 +60,12 @@ def registro(request):
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+def add_trip(request):
+    user = User.objects.get(id=request.session['user_id'])
+    destination = request.POST['destination']
+    description = request.POST['description']
+    start_date = request.POST['start_date']
+    end_date = request.POST['end_date']
+    Trip.objects.create(destination=destination, description=description, start_date=start_date, end_date=end_date, creator=user)
+    return redirect('travels/')
