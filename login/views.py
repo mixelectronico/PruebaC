@@ -1,14 +1,17 @@
-from home.models import Trip
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from time import gmtime, strftime
-import bcrypt
 
 from .models import User
 
 
+def check_user(request):
+    if not request.session['user']:
+        return redirect('login')
+    return redirect('home')
+
+
 def login(request):
-    return render(request, 'login.html')
+    return render('login.html')
 
 
 def registrar(request):
@@ -22,10 +25,10 @@ def inicio(request):
     if len(errores) > 0:
         for key, msg in errores.items():
             messages.error(request, msg)
-        return redirect('/')
+        return redirect('login')
     else:
-        request.session['user_id'] = usuario[0].id
-        return redirect('home/')
+        request.session['user_id'] = usuario[0]
+        return redirect('home')
 
 
 def registro(request):
@@ -35,7 +38,7 @@ def registro(request):
     if len(errors) > 0:
         for key, msg in errors.items():
             messages.error(request, msg)
-        return redirect('/registrar')
+        return redirect('registrar')
 
     else:
         # encriptar password
@@ -58,30 +61,10 @@ def registro(request):
                 password=decode_hash_pw,
                 rol=2,
             )
-        request.session['user_id'] = user.id
-    return redirect('home/')
+        request.session['user'] = user
+    return redirect('home')
 
 
 def logout(request):
     request.session.flush()
-    return redirect('/')
-
-def add_trip(request):
-    user = User.objects.get(id=request.session['user_id'])
-    destination = request.POST['destination']
-    description = request.POST['description']
-    start_date = request.POST['start_date']
-    end_date = request.POST['end_date']
-    Trip.objects.create(destination=destination, description=description, start_date=start_date, end_date=end_date, creator=user)
-    return redirect('travels/')
-
-def list_trips(request):
-    reg_user = User.objects.get(id=request.session['user_id'])
-    user_tips_list=Trip.objects.filter(creator=reg_user) | Trip.objects.filter(joined_user=reg_user) 
-    other_trips_list= Trip.objects.exclude(creator=reg_user) | Trip.objects.exclude(joined_user=reg_user)
-    context = {
-        "active_user": reg_user,
-        "user_trips" : user_tips_list,
-        "other_trips" : other_trips_list,
-    }
-    return render(request, 'home.html', context)
+    return redirect('check_user')

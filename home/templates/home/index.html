@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'home.html' %}
 
 {% block title %}Travel Dashboard{% endblock %}
 
@@ -89,6 +89,13 @@
         <!--end::Add Travel Plan-->
         <!--end::Main-->
     </div>
+    <script>
+    $(document).ready(function() {
+        $('table').DataTable( {
+
+        } );
+    } );
+    </script>
 
 {% endblock %}
 <!--end::Content-->
