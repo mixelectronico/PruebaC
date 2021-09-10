@@ -29,3 +29,4 @@ def add_trip(request):
 # TODO: Crear funcionalidad Join Trip
 # TODO: Mostrar el detalle de los viajes (localhost:8000/travel/destinations)
 # TODO: Terminar la funcion add_trip (Validacion)
+# TODO: ESTO ES UN TEST
