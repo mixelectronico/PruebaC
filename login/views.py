@@ -5,13 +5,13 @@ from .models import User
 
 
 def check_user(request):
-    if not request.session['user']:
+    if 'user' not in request.session:
         return redirect('login')
     return redirect('home')
 
 
 def login(request):
-    return render('login.html')
+    return render(request, 'login.html')
 
 
 def registrar(request):
