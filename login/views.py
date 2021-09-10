@@ -27,7 +27,7 @@ def inicio(request):
             messages.error(request, msg)
         return redirect('login')
     else:
-        request.session['user_id'] = usuario[0]
+        request.session['user_id'] = usuario[0].id
         return redirect('home')
 
 
