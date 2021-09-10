@@ -6,11 +6,14 @@ import bcrypt
 
 from .models import User
 
-# Create your views here.
+
 def login(request):
     return render(request, 'login.html')
+
+
 def registrar(request):
     return render(request, 'registro.html')
+
 
 def inicio(request):
     usuario = User.objects.filter(email=request.POST['email'])
@@ -24,6 +27,7 @@ def inicio(request):
         request.session['user_id'] = usuario[0].id
         return redirect('home/')
 
+
 def registro(request):
     #validacion de parametros
     errors = User.objects.basic_validator(request.POST)
@@ -34,10 +38,10 @@ def registro(request):
         return redirect('/registrar')
 
     else:
-        #encriptar password
+        # encriptar password
         password = User.objects.encriptar(request.POST['password'])
         decode_hash_pw = password.decode('utf-8')
-        #crear usuario
+        # crear usuario
         if request.POST['rol'] == '1':
             user = User.objects.create(
                 nombre=request.POST['nombre'],
@@ -56,6 +60,7 @@ def registro(request):
             )
         request.session['user_id'] = user.id
     return redirect('home/')
+
 
 def logout(request):
     request.session.flush()

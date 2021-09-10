@@ -39,6 +39,7 @@ class UserManager(models.Manager):
             errores['usuario_invalido'] = "Usuario no existe"
         return errores
 
+
 class User(models.Model):
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)

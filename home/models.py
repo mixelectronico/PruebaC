@@ -1,8 +1,8 @@
 from django.db import models
-from django.db.models.fields import CharField
-from login.models import *
 
-# Create your models here.
+from login.models import User
+
+
 class Trip(models.Model):
     creator = models.ForeignKey(User, related_name="creator", on_delete=models.CASCADE)
     destination = models.CharField(max_length=40)
