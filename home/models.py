@@ -11,4 +11,4 @@ class Trip(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     trip_plan = models.CharField(max_length=40)
-    joined_user = models.ManyToManyField(User, related_name="users")
+    joined_user = models.ManyToManyField(User, related_name="users", blank=True, null=True)
