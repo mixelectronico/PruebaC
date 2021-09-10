@@ -21,7 +21,7 @@
     <div class="wrapper">
     {% include "navbar.html" %}
         <div class="header">
-            <h5>Nombre: {{active_user.nombre}} {{active_user.apellido}}</h5>
+            <h5>Nombre: {{request.session.name}} {{request.session.last_name}}</h5>
             <br>
         </div>
         <br>

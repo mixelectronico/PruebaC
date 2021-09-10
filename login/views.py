@@ -27,7 +27,9 @@ def inicio(request):
             messages.error(request, msg)
         return redirect('login')
     else:
-        request.session['user_id'] = usuario[0]
+        request.session['user_id'] = usuario[0].id
+        request.session['name'] = usuario[0].nombre
+        request.session['last_name'] = usuario[0].apellido
         return redirect('home')
 
 
@@ -61,7 +63,7 @@ def registro(request):
                 password=decode_hash_pw,
                 rol=2,
             )
-        request.session['user'] = user
+        request.session['user_id'] = user.id
     return redirect('home')
 
 

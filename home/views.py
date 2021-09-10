@@ -6,9 +6,8 @@ from .models import *
 
 # Create your views here.
 def home(request):
-    reg_user = request.session['user']
-    user_tips_list=Trip.objects.filter(creator=reg_user) | Trip.objects.filter(joined_user=reg_user) 
-    other_trips_list= Trip.objects.exclude(creator=reg_user) | Trip.objects.exclude(joined_user=reg_user)
+    user_tips_list=Trip.objects.filter(creator=request.session['user_id']) | Trip.objects.filter(joined_user=request.session['user_id']) 
+    other_trips_list= Trip.objects.exclude(creator=request.session['user_id']) | Trip.objects.exclude(joined_user=request.session['user_id'])
     context = {
         "trips" : user_tips_list,
         "other_plans" : other_trips_list,
