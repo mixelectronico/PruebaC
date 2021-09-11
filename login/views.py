@@ -5,7 +5,7 @@ from .models import User
 
 
 def check_user(request):
-    if 'user' not in request.session:
+    if 'user_id' not in request.session:
         return redirect('login')
     return redirect('home')
 
@@ -34,7 +34,7 @@ def inicio(request):
 
 
 def registro(request):
-    #validacion de parametros
+    # validacion de parametros
     errors = User.objects.basic_validator(request.POST)
 
     if len(errors) > 0:

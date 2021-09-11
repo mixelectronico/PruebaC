@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'home/base2.html' %}
 
 {% block title %}Travel Dashboard{% endblock %}
 
@@ -13,8 +13,8 @@
             </div>
             <!--end::Logout-->
             <!--begin::Welcome message-->
-            <div>
-                <h4>Hello,{{ request.session.name}}!</h4>
+            <div class="mt-5">
+                <h4>Hello, {{ request.session.name}}!</h4>
             </div>
             <!--end::Welcome message-->
         </div>
@@ -39,7 +39,7 @@
                             <td><a href="#">{{ trip.destination }}</a></td>
                             <td>{{ trip.start_date }}</td>
                             <td>{{ trip.end_date }}</td>
-                            <td>{{ trip.trip_plan }}</td>
+                            <td>{{ trip.description }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -83,7 +83,7 @@
         <!--begin::Add Travel Plan-->
         <div class="py-4">
             <div class="text-right">
-                <a href="#">Add Travel Plan</a>
+                <a href="{% url 'add_trip' %}">Add Travel Plan</a>
             </div>
         </div>
         <!--end::Add Travel Plan-->
